@@ -77,22 +77,22 @@ def watch_networks():
         while not exit_event.is_set():
             nodes = client.nodes.list()
             for node in nodes:
-
+                
                 attrs = node.attrs
                 DOCKER_SWARM_NODE.labels(
                     **{
                         'docker_swarm_node_id': attrs['ID'],
                         'docker_swarm_node_spec_role': attrs['Spec'].get('Role', ''),
                         'docker_swarm_node_spec_availability': attrs['Spec'].get('Availability', ''),
-                        'docker_swarm_node_description_hostname': attrs['Description']['Hostname'],
-                        'docker_swarm_node_description_platform_architecture': attrs['Description']['Platform']['Architecture'],
-                        'docker_swarm_node_description_platform_os': attrs['Description']['Platform']['OS'],
-                        'docker_swarm_node_description_engine_engineversion': attrs['Description']['Engine']['EngineVersion'],
-                        'docker_swarm_node_status_state': attrs['Status']['State'],
-                        'docker_swarm_node_status_addr': attrs['Status']['Addr'],
-                        'docker_swarm_node_managerstatus_leader': attrs['ManagerStatus'].get('Leader', False),
-                        'docker_swarm_node_managerstatus_reachability': attrs['ManagerStatus'].get('Reachability', ''),
-                        'docker_swarm_node_managerstatus_addr': attrs['ManagerStatus'].get('Addr', ''),
+                        'docker_swarm_node_description_hostname': attrs.get('Description', {}).get('Hostname', ''),
+                        'docker_swarm_node_description_platform_architecture':  attrs.get('Description', {}).get('Platform', {}).get('OS', 'Architecture'),
+                        'docker_swarm_node_description_platform_os': attrs.get('Description', {}).get('Platform', {}).get('OS', ''),
+                        'docker_swarm_node_description_engine_engineversion': attrs.get('Description', {}).get('Engine', {}).get('EngineVersion', ''),
+                        'docker_swarm_node_status_state': attrs.get('Status', {}).get('State', ''),
+                        'docker_swarm_node_status_addr': attrs.get('Status', {}).get('Addr', ''),
+                        'docker_swarm_node_managerstatus_leader': attrs.get('ManagerStatus', {}).get('Leader', False),
+                        'docker_swarm_node_managerstatus_reachability': attrs.get('ManagerStatus', {}).get('Reachability', ''),
+                        'docker_swarm_node_managerstatus_addr': attrs.get('ManagerStatus', {}).get('Addr', ''),
                     }).inc()
 
 
