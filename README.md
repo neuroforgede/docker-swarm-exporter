@@ -71,4 +71,4 @@ sample rules:
       summary: Manager {{ $labels.docker_swarm_node_description_hostname }} is not reachable.
 ```
 
-A monitoring solution based on the original swarmprom that includes this can be found at our [Swarmsible Stacks repo](https://github.com/neuroforgede/swarmsible-stacks)
+A monitoring solution based on the original swarmprom that includes this can be found [here](https://github.com/neuroforgede/promswarm)
