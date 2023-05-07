@@ -4,9 +4,7 @@
 Needs to be deployed to a manager.
 
 The following metrics are supported:
-- docker_network_container_used_ips
-- docker_network_service_used_ips
-- docker_network_usable_ips
+- docker_swarm_node
 
 Proudly made by [NeuroForge](https://neuroforge.de/) in Bayreuth, Germany.
 
@@ -48,6 +46,29 @@ scrape_configs:
       - 'tasks.docker-swarm-exporter'
       type: 'A'
       port: 9000
+```
+
+sample rules:
+
+```yaml
+# ...
+  - alert: node_down
+    expr: rate(docker_swarm_node_total{docker_swarm_node_status_state!='ready'}[60s]) > 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      description: Node {{ $labels.docker_swarm_node_description_hostname }} seems to be down.
+      summary: Node {{ $labels.docker_swarm_node_description_hostname }} seems to be down.
+
+  - alert: manager_not_reachable
+    expr: rate(docker_swarm_node_total{docker_swarm_node_spec_role='manager', docker_swarm_node_managerstatus_reachability!="reachable"}[60s]) > 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      description: Manager {{ $labels.docker_swarm_node_description_hostname }} is not reachable.
+      summary: Manager {{ $labels.docker_swarm_node_description_hostname }} is not reachable.
 ```
 
 A monitoring solution based on the original swarmprom that includes this can be found at our [Swarmsible Stacks repo](https://github.com/neuroforgede/swarmsible-stacks)
