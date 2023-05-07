@@ -4,9 +4,7 @@
 Needs to be deployed to a manager.
 
 The following metrics are supported:
-- docker_network_container_used_ips
-- docker_network_service_used_ips
-- docker_network_usable_ips
+- docker_swarm_node
 
 Proudly made by [NeuroForge](https://neuroforge.de/) in Bayreuth, Germany.
 
