@@ -1,6 +1,6 @@
 # Docker Swarm exporter (Docker Swarm)
 
-*Docker Swarm exporter* exposes informationa about the Docker Swarm it is running inside of.
+*Docker Swarm exporter* exposes information about the Docker Swarm it is running inside of.
 Needs to be deployed to a manager.
 
 The following metrics are supported:
