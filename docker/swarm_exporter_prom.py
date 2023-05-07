@@ -103,7 +103,7 @@ if __name__ == '__main__':
     last_failure: Optional[datetime]
     while not exit_event.is_set():
         try:
-            print_timed('Watch networks')
+            print_timed('Watch Docker Swarm')
             watch_networks()
         except docker.errors.APIError:
             now = datetime.now()
