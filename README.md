@@ -18,7 +18,7 @@ Deploy:
 version: "3.8"
 
 services:
-  docker-engine-networks-exporter:
+  docker-swarm-exporter:
     image: ghcr.io/neuroforgede/docker-swarm-exporter:0.1.0
     networks:
       - net
