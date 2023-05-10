@@ -70,7 +70,7 @@ def print_timed(msg):
     print(to_print)
 
 
-def watch_networks():
+def watch_swarm():
     client = docker.DockerClient()
 
     try:
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     while not exit_event.is_set():
         try:
             print_timed('Watch Docker Swarm')
-            watch_networks()
+            watch_swarm()
         except docker.errors.APIError:
             now = datetime.now()
             traceback.print_exc()
