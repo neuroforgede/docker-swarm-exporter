@@ -106,18 +106,16 @@ if __name__ == '__main__':
     start_http_server(PROMETHEUS_EXPORT_PORT, addr='0.0.0.0')
     
     failure_count = 0
-    last_failure: Optional[datetime]
+    last_failure: Optional[datetime] = None
     while not exit_event.is_set():
         try:
             print_timed('Watch Docker Swarm')
             watch_networks()
         except docker.errors.APIError:
             now = datetime.now()
-
             traceback.print_exc()
 
-            last_failure = last_failure
-            if last_failure < (now - timedelta.seconds(SCRAPE_INTERVAL * 10)):
+            if last_failure is not None and last_failure < (now - timedelta.seconds(SCRAPE_INTERVAL * 10)):
                 print_timed("detected docker APIError, but last error was a bit back, resetting failure count.")
                 # last failure was a while back, reset
                 failure_count = 0
